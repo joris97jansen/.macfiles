@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Set Session Name.
+SESSION="hfct"
+
+# Check if session exists.
+SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
+
+# Only create tmux session if it doesn't already exist.
+if [ "$SESSIONEXISTS" = "" ]
+then
+    # Start New Session with our name.
+    tmux new-session -d -s $SESSION
+
+    # Window 1: api.
+    tmux rename-window -t 1 'api'
+    tmux send-keys -t 'api' 'cd ~/code/snellerboekendandebuurman/hfct' C-m 'workon hfct' C-m 'clear' C-m
+
+    # Window 2: util
+    tmux new-window -t $SESSION:2 -n 'util'
+    tmux send-keys -t 'util' 'cd ~/code/snellerboekendandebuurman/hfct' C-m 'workon hfct' C-m 'clear' C-m
+fi
+
+# Attach Session, on the Main window
+tmux attach-session -t $SESSION:1

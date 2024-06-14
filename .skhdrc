@@ -1,8 +1,8 @@
 # reset border color in default mode
 :: default : yabai -m config active_window_border_color 0xE032CD32
 # lock screen immediately
-cmd - escape : pmset displaysleepnow 
-# sleep 
+cmd - escape : pmset displaysleepnow
+# sleep
 cmd + shift - s : osascript -e 'tell application "System Events" to sleep'
 # logout
 cmd + shift - e : osascript -e 'tell app "System Events" to log out'
@@ -43,7 +43,7 @@ hyper - n : yabai -m space --create; \
 # destroy current space
 hyper - d : yabai -m space --destroy
 
-# === Modification === 
+# === Modification ===
 # Move window relatively
 cmd + shift - h : yabai -m window --warp west
 cmd + shift - j : yabai -m window --warp south
@@ -55,7 +55,7 @@ cmd + shift - down : yabai -m window --warp south
 cmd + shift - up : yabai -m window --warp north
 cmd + shift - right : yabai -m window --warp east
 
-# send window to space 
+# send window to space
 cmd + shift - x : yabai -m window --space recent
 cmd + shift - 1 : yabai -m window --space 1
 cmd + shift - 2 : yabai -m window --space 2

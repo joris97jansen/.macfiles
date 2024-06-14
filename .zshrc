@@ -105,7 +105,7 @@ bindkey '^I' autosuggest-accept
 
 source ~/.zsh_profile
 
-alias python3=/opt/homebrew/bin/python3.11
+alias python3=/opt/homebrew/bin/python3.12
 alias pip=pip3
 
 # Setting PATH for Python 3 installed by brew
@@ -118,4 +118,23 @@ export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3.11
 export VIRTUALENVWRAPPER_VIRTUALENV=/opt/homebrew/bin/virtualenv
 source /opt/homebrew/bin/virtualenvwrapper.sh
+# export PATH="/usr/local/anaconda3/bin:$PATH"  # commented out by conda initialize
+
+# Config for using yubikey for aws-vault
+export AWS_VAULT_PROMPT=ykman
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/jorisjansen/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/jorisjansen/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/jorisjansen/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/jorisjansen/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 

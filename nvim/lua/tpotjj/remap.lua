@@ -41,3 +41,15 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+
+-- Windows we don't do here
+vim.keymap.set("n", "<leader>wih", "10<C-w>+")
+vim.keymap.set("n", "<leader>wdh", "10<C-w>-")
+vim.keymap.set("n", "<leader>wiw", "10<C-w>>")
+vim.keymap.set("n", "<leader>wdw", "10<C-w><")
+vim.keymap.set("n", "<leader>ws", ":split<CR>")
+vim.keymap.set("n", "<leader>wsh", ":vsplit<CR>")
+vim.keymap.set("n", "<leader>wc", ":close<CR>")
+
+-- Tabs
+vim.keymap.set("n", "<leader>t", ":tabedit %<CR>")

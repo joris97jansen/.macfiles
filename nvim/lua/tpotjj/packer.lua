@@ -1,14 +1,15 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
 -- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
+-- vim.cmd [[packadd packer.nvim]]
+vim.cmd.packadd('packer.nvim')
 
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        'nvim-telescope/telescope.nvim', tag = '0.1.4',
         -- or                            , branch = '0.1.x',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
@@ -21,7 +22,7 @@ return require('packer').startup(function(use)
         end
     })
 
-    use('windwp/nvim-autopairs')
+    use('windwp/nvim-aUTopairs')
     use('terrortylor/nvim-comment')
 
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
@@ -34,6 +35,22 @@ return require('packer').startup(function(use)
     use('mbbill/undotree')
 
     use('tpope/vim-fugitive')
+
+    use ('ellisonleao/gruvbox.nvim')
+
+    use ('WhoIsSethDaniel/toggle-lsp-diagnostics.nvim')
+
+    use ('mfussenegger/nvim-dap')
+    use ( "mxsdev/nvim-dap-vscode-js")
+    use {
+      "microsoft/vscode-js-debug",
+      opt = true,
+      run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out"
+    }
+    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
+    use ('theHamsta/nvim-dap-virtual-text')
+    use ('nvim-telescope/telescope-dap.nvim')
+
 
     use {
         'VonHeikemen/lsp-zero.nvim',

@@ -2,4 +2,3 @@ export XDG_CONFIG_HOME=$HOME/.config
 VIM="nvim"
 alias vim="nvim"
 
-addToPathFront $HOME/.local/scripts
