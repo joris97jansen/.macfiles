@@ -71,7 +71,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions poetry)
+plugins=(git zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -105,36 +105,35 @@ bindkey '^I' autosuggest-accept
 
 source ~/.zsh_profile
 
-alias python3=/opt/homebrew/bin/python3.12
-alias pip=pip3
-
-# Setting PATH for Python 3 installed by brew
-export PATH=/usr/local/share/python:$PATH
-
 export PATH=$PATH:/Users/jorisjansen/bin
-
-# Configuration for virtualenv
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3.11
-export VIRTUALENVWRAPPER_VIRTUALENV=/opt/homebrew/bin/virtualenv
-source /opt/homebrew/bin/virtualenvwrapper.sh
-# export PATH="/usr/local/anaconda3/bin:$PATH"  # commented out by conda initialize
 
 # Config for using yubikey for aws-vault
 export AWS_VAULT_PROMPT=ykman
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/jorisjansen/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/jorisjansen/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/jorisjansen/opt/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/jorisjansen/opt/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+# pnpm
+export PNPM_HOME="/Users/jorisjansen/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
 
+# export HTTPS_PROXY=http://127.0.0.1:9000
+# export HTTP_PROXY=http://127.0.0.1:9000
+#
+# export NODE_EXTRA_CA_CERTS=~/EBS-ca.pem
+# export AWS_CA_BUNDLE=~/EBS-ca.pem
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
+
+# vapi
+export VAPI_INSTALL="$HOME/.vapi"
+export PATH="$VAPI_INSTALL/bin:$PATH"
+export MANPATH=""$HOME/.vapi"/share/man:$MANPATH"
+
+# vapi
+export VAPI_INSTALL="$HOME/.vapi"
+export PATH="$VAPI_INSTALL/bin:$PATH"
+export MANPATH=""$HOME/.vapi"/share/man:$MANPATH"

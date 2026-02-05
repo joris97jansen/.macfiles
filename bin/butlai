@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# Set Session Name.
+SESSION="butlai"
+
+# Check if session exists.
+SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
+
+# Only create tmux session if it doesn't already exist.
+if [ "$SESSIONEXISTS" = "" ]
+then
+    # Start New Session with our name.
+    tmux new-session -d -s $SESSION
+
+    # Window 1: server.
+    tmux rename-window -t 1 'server'
+    tmux send-keys -t 'server' 'cd ~/personal/butlai/code/butlai' C-m 'workon butlai' C-m 'clear' C-m
+
+    # Window 2: server.
+    tmux rename-window -t 2 'stripe'
+    tmux send-keys -t 'stripe' 'cd ~/personal/butlai/code/butlai' C-m 'workon butlai' C-m 'clear' C-m
+
+    # Window 3: ngrok.
+    tmux rename-window -t 3 'ngrok'
+    tmux send-keys -t 'ngrok' 'cd ~/personal/butlai/code/butlai' C-m 'workon butlai' C-m 'clear' C-m
+
+    # Window 8: util.
+    tmux new-window -t $SESSION:8 -n 'util'
+    tmux send-keys -t 'util' 'cd ~/personal/butlai/code/butlai' C-m 'workon butlai' C-m C-m 'clear' C-m
+
+    # Window 9: vim
+    tmux new-window -t $SESSION:9 -n 'vim'
+    tmux send-keys -t 'vim' 'cd ~/personal/butlai/code/butlai' C-m 'workon butlai' c-m 'clear' C-m
+fi
+
+# Attach Session, on the Main window
+tmux attach-session -t $SESSION:1

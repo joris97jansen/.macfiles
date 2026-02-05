@@ -3,19 +3,25 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
-lsp.ensure_installed({
-    'tsserver',
-    'eslint',
-    'lua_ls',
-    'pyright',
-    'rust_analyzer',
-    'terraformls',
-    'gopls'
+require('mason').setup({})
+
+local function setup_lua_ls()
+  local lua_opts = lsp.nvim_lua_ls()
+  if vim.fn.has('nvim-0.11') == 1 then
+    vim.lsp.config('lua_ls', lua_opts)
+    vim.lsp.enable('lua_ls')
+  else
+    require('lspconfig').lua_ls.setup(lua_opts)
+  end
+end
+
+require('mason-lspconfig').setup({
+  ensure_installed = {'ts_ls', 'lua_ls', 'angularls', 'pyright', 'pyre', 'html', 'htmx', 'jinja_lsp', 'tailwindcss'},
+  handlers = {
+    lsp.default_setup,
+    lua_ls = setup_lua_ls,
+  },
 })
-
--- Fix Undefined global 'vim'
-lsp.nvim_workspace()
-
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
@@ -29,8 +35,8 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
+lsp.setup({
+  cmp_mappings = cmp_mappings
 })
 
 lsp.set_preferences({
@@ -63,4 +69,3 @@ lsp.setup()
 vim.diagnostic.config({
     virtual_text = true
 })
-

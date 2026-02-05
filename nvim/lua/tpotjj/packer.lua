@@ -14,15 +14,15 @@ return require('packer').startup(function(use)
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
-    use({
-        'rose-pine/neovim',
-        as = 'rose-pine',
-        config = function()
-            vim.cmd('colorscheme rose-pine')
-        end
-    })
+    -- use {"kkrampis/codex.nvim"}
+    use{ '~/personal/code/codex.nvim' }
 
-    use('windwp/nvim-aUTopairs')
+
+    use {"ellisonleao/gruvbox.nvim" }
+
+    use {'github/copilot.vim', branch = 'release' }
+
+    use('windwp/nvim-autopairs')
     use('terrortylor/nvim-comment')
 
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
@@ -35,8 +35,6 @@ return require('packer').startup(function(use)
     use('mbbill/undotree')
 
     use('tpope/vim-fugitive')
-
-    use ('ellisonleao/gruvbox.nvim')
 
     use ('WhoIsSethDaniel/toggle-lsp-diagnostics.nvim')
 

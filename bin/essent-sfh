@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# Set Session Name.
+SESSION="essent-fsh"
+
+# Check if session exists.
+SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
+
+# Only create tmux session if it doesn't already exist.
+if [ "$SESSIONEXISTS" = "" ]
+then
+    # Start New Session with our name.
+    tmux new-session -d -s $SESSION
+
+    # Window 1: frontend.
+    tmux rename-window -t 1 'frontend'
+    tmux send-keys -t 'frontend' 'cd ~/essent/code/functional-services' C-m 'fnm use' C-m 'clear' C-m
+
+    # Window 2: backend
+    tmux new-window -t $SESSION:2 -n 'backend'
+    tmux send-keys -t 'backend' 'cd ~/essent/code/functional-services' C-m 'fnm use' C-m 'clear' C-m
+
+    # Window 8: util
+    tmux new-window -t $SESSION:8 -n 'util'
+    tmux send-keys -t 'util' 'cd ~/essent/code/functional-services' C-m 'fnm use' C-m 'clear' C-m
+
+    # Window 9: vim
+    tmux new-window -t $SESSION:9 -n 'vim'
+    tmux send-keys -t 'vim' 'cd ~/essent/code/functional-services' C-m 'fnm use' c-m 'clear' C-m
+fi
+
+# Attach Session, on the Main window
+tmux attach-session -t $SESSION:1

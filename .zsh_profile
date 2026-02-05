@@ -2,3 +2,31 @@ export XDG_CONFIG_HOME=$HOME/.config
 VIM="nvim"
 alias vim="nvim"
 
+export PATH="$HOME/.fnm:$PATH"
+eval "$(fnm env)"
+
+alias sfh-frontend="npx nx serve sales-forecast-hub-frontend"
+alias sfh-backend="npx nx serve sales-forecast-hub-backend"
+alias sfh-all="npx nx run sales-forecast-hub-frontend:serve-all"
+
+# export DYNAMO_ENDPOINT=http://localhost:15538
+# export AWS_SECRET_ACCESS_KEY=localSecretAccessKeyId
+
+# Configuration for virtualenv
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+# export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+source virtualenvwrapper.sh
+# source /usr/local/bin/virtualenvwrapper.sh
+
+FNM_PATH="/Users/jorisjansen/Library/Application Support/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="/Users/jorisjansen/Library/Application Support/fnm:$PATH"
+  eval "`fnm env`"
+fi
+
+
+eval "$(fnm env --use-on-cd --version-file-strategy=recursive --resolve-engines)"
+PATH=$PATH:/usr/local/sbin
+
+alias ngrok-butlai='source ~/personal/code/.macfiles/bin/ngrok-butlai.sh'

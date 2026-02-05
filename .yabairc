@@ -1,15 +1,6 @@
-
 # === Load Scripting Additions ===
-
-# sudo nvram boot-args=-arm64e_preview_abi
-# sudo yabai --uninstall-sa
-# sudo yabai --install-sa
-# sudo yabai --load-sa
-
-# yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-
-# yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
 
 # general space settings
 yabai -m config layout                       bsp
@@ -19,17 +10,41 @@ yabai -m config right_padding                10
 yabai -m config window_gap                   10
 
 yabai -m config mouse_follows_focus         on
-yabai -m config focus_follows_mouse         on
 
-yabai -m config window_border               on
-yabai -m config window_border_width         4
-yabai -m config active_window_border_color  0xE032CD32
-yabai -m config insert_feedback_color       0x00010101
-yabai -m config normal_window_border_color  0xE02d74da
 yabai -m config active_window_opacity       1.0
 yabai -m config normal_window_opacity       0.90
 yabai -m config split_ratio                 0.50
 
-sudo yabai --load-sa
+for idx in $(yabai -m query --spaces | jq '.[].index | select(. > 6)' | sort -nr); do
+  yabai -m space --destroy "$idx"
+done
 
-yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+function setup_space {
+  local idx="$1"
+  local name="$2"
+  local space=
+  echo "setup space $idx : $name"
+
+  space=$(yabai -m query --spaces --space "$idx")
+  if [ -z "$space" ]; then
+    yabai -m space --create
+  fi
+
+  yabai -m space "$idx" --label "$name"
+}
+
+setup_space 1 teams
+setup_space 2 work
+setup_space 3 prive
+setup_space 4 terminal
+setup_space 5 other
+
+yabai -m rule --add app="^Slack$" space=^1
+# Assign specific Chrome profiles to spaces
+yabai -m rule --add app="^Google Chrome$" title=".*Profile 3.*" space=^2
+yabai -m rule --add app="^Google Chrome$" title=".*Profile 2.*" space=^3
+yabai -m rule --add app="^Kitty$" space=^4
+
+# Open Chrome Profile Instances
+open -na "Google Chrome" --args --profile-directory="Profile 2"
+open -na "Google Chrome" --args --profile-directory="Profile 3"

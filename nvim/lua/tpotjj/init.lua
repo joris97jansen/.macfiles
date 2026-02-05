@@ -1,5 +1,6 @@
 require("tpotjj.remap")
 require("tpotjj.set")
+require("tpotjj.packer")
 
 local augroup = vim.api.nvim_create_augroup
 local ThePrimeagenGroup = augroup('ThePrimeagen', {})
