@@ -2,8 +2,11 @@ local codex = require('codex')
 
 codex.setup({
   keymaps = {
-    toggle = nil, -- disable internal default mapping to avoid conflicts
-    quit = '<C-q>',
+    toggle = nil,
+    quit = { '<C-q>', '<C-c>', 'ZZ' },
+    term_normal = '<Esc>',
+    history_list = '<leader>ch',
+    last = '<leader>clh', 
   },
   border = 'rounded',
   width = 0.8,
@@ -11,9 +14,13 @@ codex.setup({
   panel = false,
   use_buffer = false,
   autoinstall = true,
+  panel_width = 0.2,
+  render_markdown = true,
   history = {
-    ui = 'telescope'
-  }
+    ui = 'telescope',
+    open_last_on_toggle = true,
+    open_session_in_panel = true,
+  },
 })
 
 vim.keymap.set({ 'n', 't' }, '<leader>cc', function()
