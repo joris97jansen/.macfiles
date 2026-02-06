@@ -32,3 +32,19 @@ vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
 
+-- Use system clipboard for all yanks, deletes, changes, and puts.
+vim.opt.clipboard = "unnamedplus"
+
+-- Force macOS clipboard provider (robust when auto-detection fails).
+vim.g.clipboard = {
+    name = "macOS-clipboard",
+    copy = {
+        ["+"] = "pbcopy",
+        ["*"] = "pbcopy",
+    },
+    paste = {
+        ["+"] = "pbpaste",
+        ["*"] = "pbpaste",
+    },
+    cache_enabled = 0,
+}
